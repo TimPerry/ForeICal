@@ -1,5 +1,4 @@
-
-ForeICal uses two classes ForeICal and ForeICalEvent to create a ics calendar file and serve it to the user for download. The Script but not be on a page where you want content to be displayed as the headers are used to generate the calendar so all content outputted onto the page is used in the ics calendar file.
+ForeICal uses two classes ForeICal and ForeICalEvent to create a ics calendar file and serve it to the user for download. The script must not be on a page where you want content to be displayed, as the headers that are used to generate the calendar file will use what ever content is outputted on the page to create the ics calendar file.
 
 Example usage:
 
