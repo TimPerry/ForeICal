@@ -5,9 +5,9 @@ class ForeICalEvent
 	private $name;
 	private $summary;
 	private $start_date;
-    private $end_date;
+    	private $end_date;
 
-	function __construct($name, $start_time='01-01-2012', $end_time='01-01-2012', $summary='', $location='')
+	function __construct($name, $start_date='01-01-2012', $end_date='01-01-2012', $summary='', $location='')
 	{	
         $this->name=$name;
         $this->summary=$summary;
@@ -24,7 +24,7 @@ class ForeICalEvent
 		$summary = !empty($this->summary) ? $this->summary : $event;
 		
 		// set the end time to the start time if end time is not set
-		$end_time = $this->end_time=='01-01-2012' ? $this->start_time: $this->end_time;
+		$end_time = $this->end_date =='01-01-2012' ? $this->start_date: $this->end_date;
 		
 		// generate our uid
 		$salt = 'forepoint_generated';
@@ -33,27 +33,27 @@ class ForeICalEvent
 		// reverse the date and remove the hyphens
 		$parts = explode('-', $this->start_time);
 		$parts = array_reverse($parts);
-		$start_time = sprintf("%s%s%sT000000Z", $parts[0], $parts[1], $parts[2]);
+		$start_date = sprintf("%s%s%s", $parts[0], $parts[1], $parts[2]);
 		
 		// reverse the date and remove the hyphens
 		$parts = explode('-', $this->end_time);
 		$parts = array_reverse($parts);
-		$end_time = sprintf("%s%s%sT000000Z", $parts[0], $parts[1], $parts[2]);
+		$end_date = sprintf("%s%s%s", $parts[0], $parts[1], $parts[2]);
 		
 		// use the date function to get the date today and format to meet the ical spec
 		$today = date("d, m, Y"); 
 		$parts = date_parse($today);
-		$stamp_time = sprintf("%s%s%sT000000Z", $parts['year'], $parts['month'], $parts['day']);
+		$stamp_date = sprintf("%s%s%s", $parts['year'], $parts['month'], $parts['day']);
 
 		// create the textual representation of the event
 		$calObj .=  "BEGIN:VEVENT\n";
 		$calObj .=  "CLASS:PUBLIC\n";
 		$calObj .=  "CREATED:{$stamp_time}\n";
 		$calObj .=  "DESCRIPTION: {$event}\n";
-		$calObj .=  "DTSTART:{$start_time}\n";
-		$calObj .=  "DTEND:{$end_time}\n";
-		$calObj .=  "DTSTAMP:{$stamp_time}\n";
-		$calObj .=  "LAST-MODIFIED:{$stamp_time}\n";
+		$calObj .=  "DTSTART:{$start_date}\n";
+		$calObj .=  "DTEND:{$end_date}\n";
+		$calObj .=  "DTSTAMP:{$stamp_date}\n";
+		$calObj .=  "LAST-MODIFIED:{$stamp_date}\n";
 		$calObj .=  "LOCATION: {$location}\n";
 		$calObj .=  "PRIORITY:5\n";
 		$calObj .=  "SEQUENCE:0\n";
